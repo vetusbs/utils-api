@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"os"
 
-	"domino/github.com/vetusbs/utils/controller"
 	"github.com/sirupsen/logrus"
+	"github.com/vetusbs/utils-api/controller"
 )
 
 // Create a new instance of the logger. You can have any number of instances.
