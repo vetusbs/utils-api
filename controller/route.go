@@ -7,7 +7,7 @@ import (
 // Register is the main function of the http server
 func Register() *mux.Router {
 	api := mux.NewRouter()
-	api.HandleFunc("/random/int", test())
+	api.HandleFunc("/random/int", randomInt())
 
 	return api
 }
