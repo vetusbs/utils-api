@@ -8,6 +8,7 @@ import (
 func Register() *mux.Router {
 	api := mux.NewRouter()
 	api.HandleFunc("/random/int", randomInt())
+	api.HandleFunc("/random/string", randomString())
 
 	return api
 }
