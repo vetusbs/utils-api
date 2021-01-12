@@ -12,12 +12,19 @@ func randomInt() http.HandlerFunc {
 		w.Header().Set("Access-Control-Allow-Origin", "*")
 		w.Header().Set("Access-Control-Allow-Methods", "*")
 		w.Header().Set("Access-Control-Allow-Headers", "*")
-		if r.Method == http.MethodGet {
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusOK)
-			js, _ := json.Marshal(Response{Value: strconv.Itoa(rand.Intn(1000))})
-			w.Write(js)
+
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusOK)
+
+		max, _ := strconv.Atoi(r.URL.Query().Get("max"))
+
+		if max == 0 {
+			max = 1000
 		}
+
+		js, _ := json.Marshal(Response{Value: strconv.Itoa(rand.Intn(max))})
+		w.Write(js)
+
 	}
 }
 
@@ -26,18 +33,24 @@ func randomString() http.HandlerFunc {
 		w.Header().Set("Access-Control-Allow-Origin", "*")
 		w.Header().Set("Access-Control-Allow-Methods", "*")
 		w.Header().Set("Access-Control-Allow-Headers", "*")
-		if r.Method == http.MethodGet {
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusOK)
-			js, _ := json.Marshal(Response{Value: RandStringRunes(10)})
-			w.Write(js)
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusOK)
+
+		len, _ := strconv.Atoi(r.URL.Query().Get("len"))
+
+		if len == 0 {
+			len = 10
 		}
+
+		js, _ := json.Marshal(Response{Value: randStringRunes(len)})
+		w.Write(js)
+
 	}
 }
 
 var letterRunes = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
 
-func RandStringRunes(n int) string {
+func randStringRunes(n int) string {
 	b := make([]rune, n)
 	for i := range b {
 		b[i] = letterRunes[rand.Intn(len(letterRunes))]
