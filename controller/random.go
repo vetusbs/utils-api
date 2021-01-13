@@ -4,6 +4,8 @@ import (
 	"math/rand"
 	"net/http"
 	"strconv"
+
+	guuid "github.com/google/uuid"
 )
 
 func randomInt() http.HandlerFunc {
@@ -40,6 +42,14 @@ func randStringRunes(n int) string {
 		b[i] = letterRunes[rand.Intn(len(letterRunes))]
 	}
 	return string(b)
+}
+
+func randomUuid() http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		response := Response{Value: guuid.New()}
+
+		render(w, response, http.StatusOK, r)
+	}
 }
 
 type Response struct {
