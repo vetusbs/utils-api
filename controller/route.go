@@ -15,6 +15,7 @@ func Register() *mux.Router {
 
 	api.HandleFunc("/random/int", random.RandomInt()).Methods("GET")
 	api.HandleFunc("/random/string", random.RandomString()).Methods("GET")
+	api.HandleFunc("/random/uuid", random.RandomUuid()).Methods("GET")
 
 	return api
 }
