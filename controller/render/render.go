@@ -7,7 +7,7 @@ import (
 	"net/http"
 )
 
-func Render(w http.ResponseWriter, v interface{}, status int, r *http.Request) {
+func Render(w http.ResponseWriter, v []interface{}, status int, r *http.Request) {
 
 	accepts := r.Header.Get("Accept")
 	if accepts == "text/plain" {
@@ -18,14 +18,16 @@ func Render(w http.ResponseWriter, v interface{}, status int, r *http.Request) {
 
 }
 
-func writeText(w http.ResponseWriter, v interface{}, status int) {
+func writeText(w http.ResponseWriter, v []interface{}, status int) {
 	w.Header().Set("Content-Type", "text/plain")
 	w.WriteHeader(status)
 
-	io.WriteString(w, fmt.Sprintf("%v", v))
+	for _, element := range v {
+		io.WriteString(w, fmt.Sprintf("%v", element))
+	}
 }
 
-func writeJSON(w http.ResponseWriter, v interface{}, status int) {
+func writeJSON(w http.ResponseWriter, v []interface{}, status int) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(status)
 	enc := json.NewEncoder(w)

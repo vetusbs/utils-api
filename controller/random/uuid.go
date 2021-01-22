@@ -9,7 +9,7 @@ import (
 
 func RandomUuid() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		response := response{Value: guuid.New().String()}
+		response := []interface{}{guuid.New().String()}
 		render.Render(w, response, http.StatusOK, r)
 	}
 }

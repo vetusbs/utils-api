@@ -16,7 +16,7 @@ func RandomString() http.HandlerFunc {
 			len = 10
 		}
 
-		response := response{Value: randStringRunes(len)}
+		response := []interface{}{randStringRunes(len)}
 
 		render.Render(w, response, http.StatusOK, r)
 	}

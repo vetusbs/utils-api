@@ -15,7 +15,7 @@ func RandomInt() http.HandlerFunc {
 		if max == 0 {
 			max = 1000
 		}
-		response := response{Value: strconv.Itoa(rand.Intn(max))}
+		response := []interface{}{strconv.Itoa(rand.Intn(max))}
 		render.Render(w, response, http.StatusOK, r)
 	}
 }
